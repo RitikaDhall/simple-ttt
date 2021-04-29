@@ -1,3 +1,5 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,13 +22,13 @@ public class Board extends JFrame {
         setTitle("Tic Tac Toe");
         setSize(500, 500);
         setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
         currentPlayer = "x";
         board = new JButton[3][3];
         hasWinner = false;
         initializeBoard();
         initializeMenuBar();
+        setVisible(true);
     }
 
     private void initializeMenuBar() {
