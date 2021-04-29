@@ -67,11 +67,32 @@ public class Board extends JFrame {
     }
 
     private void initializeBoard() {
-        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                JButton btn = new JButton();
+                board[i][j] = btn;
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(((JButton)e.getSource()).getText().equals("") && hasWinner == false) {
+                            btn.setText(currentPlayer);
+                            hasWinner();
+                            togglePlayer();
+                        }
+                    }                    
+                });
+
+                pane.add(btn);
+            }
+        }
     }
 
     private void togglePlayer() {
-        
+        if (currentPlayer.equals("x")) {
+            currentPlayer = "o";
+        } else {
+            currentPlayer = "x";
+        }
     }
 
     private void hasWinner() {
