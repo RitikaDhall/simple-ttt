@@ -1,6 +1,7 @@
 package src;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,9 @@ public class Board extends JFrame {
     private JMenu menu;
     private JMenuItem newGame;
     private JMenuItem quit;
+
+    Color green = new Color(116, 237, 126);
+    Color white = new Color(250, 250, 250);
 
     String X = "X";
     String O = "O";
@@ -66,6 +70,9 @@ public class Board extends JFrame {
         hasWinner = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+                board[i][j].setBorderPainted(true);
+                board[i][j].setOpaque(false);
+                board[i][j].setBackground(white);
                 board[i][j].setText("");
             }
         }
@@ -74,21 +81,20 @@ public class Board extends JFrame {
     private void initializeBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                JButton btn = new JButton();
-                btn.setFont(btn.getFont().deriveFont(64.0f));
-                board[i][j] = btn;
-                btn.addActionListener(new ActionListener() {
+                JButton button = new JButton();
+                button.setFont(button.getFont().deriveFont(64.0f));
+                board[i][j] = button;
+                button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(((JButton)e.getSource()).getText().equals("") && hasWinner == false) {
-                            btn.setText(currentPlayer);
+                            button.setText(currentPlayer);
                             hasWinner();
                             togglePlayer();
                         }
                     }                    
                 });
-
-                pane.add(btn);
+                pane.add(button);
             }
         }
     }
@@ -101,49 +107,43 @@ public class Board extends JFrame {
         }
     }
 
+    private boolean checkWin(JButton[] seq) {
+            String a = seq[0].getText();
+            String b = seq[1].getText();
+            String c = seq[2].getText();
+
+            if (currentPlayer.equals(a) && a.equals(c) && b.equals(c)) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
     private void hasWinner() {
-        // To do: complete all winning combos
         String messageTitle = "GAME OVER";
         String message = "Player " + currentPlayer + " wins!";
-        // 1st col
-        if(board[0][0].getText().equals(currentPlayer) && board[1][0].getText().equals(currentPlayer) && board[2][0].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // 2nd col
-        else if(board[0][1].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[2][1].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // 3rd col
-        else if(board[0][2].getText().equals(currentPlayer) && board[1][2].getText().equals(currentPlayer) && board[2][2].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // 1st row
-        if(board[0][0].getText().equals(currentPlayer) && board[0][1].getText().equals(currentPlayer) && board[0][2].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // 2nd row
-        else if(board[1][0].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[1][2].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // 3rd row
-        else if(board[2][0].getText().equals(currentPlayer) && board[2][1].getText().equals(currentPlayer) && board[2][2].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // Primary diag
-        if(board[0][0].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[2][2].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
-        }
-        // Secondary diag
-        else if(board[0][2].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[2][0].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
-            hasWinner = true;
+
+        JButton[] r1 = new JButton[] {board[0][0], board[0][1], board[0][2]};
+        JButton[] r2 = new JButton[] {board[1][0], board[1][1], board[1][2]};
+        JButton[] r3 = new JButton[] {board[2][0], board[2][1], board[2][2]};
+        JButton[] c1 = new JButton[] {board[0][0], board[1][0], board[2][0]};
+        JButton[] c2 = new JButton[] {board[0][1], board[1][1], board[2][1]};
+        JButton[] c3 = new JButton[] {board[0][2], board[1][2], board[2][2]};
+        JButton[] d1 = new JButton[] {board[0][0], board[1][1], board[2][2]};
+        JButton[] d2 = new JButton[] {board[0][2], board[1][1], board[2][0]};
+
+        JButton[][] possibleWin = new JButton[][] {r1, r2, r3, c1, c2, c3, d1, d2};
+
+        for (JButton[] option : possibleWin) {
+           if (checkWin(option)) {
+                for (JButton button : option) {
+                    button.setBorderPainted(false);
+                    button.setOpaque(true);
+                    button.setBackground(green);
+                }
+                JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+                hasWinner = true;      
+           }
         }
     }
 }
