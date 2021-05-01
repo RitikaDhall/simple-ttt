@@ -15,6 +15,9 @@ public class Board extends JFrame {
     private JMenuItem newGame;
     private JMenuItem quit;
 
+    String X = "X";
+    String O = "O";
+
     public Board() {
         super();
         pane = getContentPane();
@@ -23,7 +26,7 @@ public class Board extends JFrame {
         setSize(500, 500);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
-        currentPlayer = "x";
+        currentPlayer = X;
         board = new JButton[3][3];
         hasWinner = false;
         initializeBoard();
@@ -59,7 +62,7 @@ public class Board extends JFrame {
     }
 
     private void resetBoard() {
-        currentPlayer = "x";
+        currentPlayer = X;
         hasWinner = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -72,6 +75,7 @@ public class Board extends JFrame {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 JButton btn = new JButton();
+                btn.setFont(btn.getFont().deriveFont(64.0f));
                 board[i][j] = btn;
                 btn.addActionListener(new ActionListener() {
                     @Override
@@ -90,28 +94,30 @@ public class Board extends JFrame {
     }
 
     private void togglePlayer() {
-        if (currentPlayer.equals("x")) {
-            currentPlayer = "o";
+        if (currentPlayer.equals(X)) {
+            currentPlayer = O;
         } else {
-            currentPlayer = "x";
+            currentPlayer = X;
         }
     }
 
     private void hasWinner() {
         // To do: complete all winning combos
+        String messageTitle = "GAME OVER";
+        String message = "Player " + currentPlayer + " wins!";
         // 1st col
         if(board[0][0].getText().equals(currentPlayer) && board[1][0].getText().equals(currentPlayer) && board[2][0].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, "Player " + currentPlayer + " wins!");
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
             hasWinner = true;
         }
         // 2nd col
         else if(board[0][1].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[2][1].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, "Player " + currentPlayer + " wins!");
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
             hasWinner = true;
         }
         // 3rd col
         else if(board[0][2].getText().equals(currentPlayer) && board[1][2].getText().equals(currentPlayer) && board[2][2].getText().equals(currentPlayer)) {
-            JOptionPane.showMessageDialog(null, "Player " + currentPlayer + " wins!");
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
             hasWinner = true;
         }
     }

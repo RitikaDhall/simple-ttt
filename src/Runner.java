@@ -1,7 +1,14 @@
 package src;
 
+import javax.swing.SwingUtilities;
+
 public class Runner {
     public static void main(String[] args) {
-        new Board();
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run() {                
+                new Board();
+            }
+        });
     }
 }
