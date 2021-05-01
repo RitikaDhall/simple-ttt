@@ -120,5 +120,30 @@ public class Board extends JFrame {
             JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
             hasWinner = true;
         }
+        // 1st row
+        if(board[0][0].getText().equals(currentPlayer) && board[0][1].getText().equals(currentPlayer) && board[0][2].getText().equals(currentPlayer)) {
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+            hasWinner = true;
+        }
+        // 2nd row
+        else if(board[1][0].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[1][2].getText().equals(currentPlayer)) {
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+            hasWinner = true;
+        }
+        // 3rd row
+        else if(board[2][0].getText().equals(currentPlayer) && board[2][1].getText().equals(currentPlayer) && board[2][2].getText().equals(currentPlayer)) {
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+            hasWinner = true;
+        }
+        // Primary diag
+        if(board[0][0].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[2][2].getText().equals(currentPlayer)) {
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+            hasWinner = true;
+        }
+        // Secondary diag
+        else if(board[0][2].getText().equals(currentPlayer) && board[1][1].getText().equals(currentPlayer) && board[2][0].getText().equals(currentPlayer)) {
+            JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+            hasWinner = true;
+        }
     }
 }
