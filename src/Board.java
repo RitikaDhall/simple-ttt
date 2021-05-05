@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Board extends JFrame {
-    private Container pane;
+    private final Container pane;
     private String currentPlayer;
-    private JButton[][] board;
+    private final JButton[][] board;
     private boolean hasWinner;
     private JMenuBar menuBar;
     private JMenu menu;
@@ -28,7 +28,7 @@ public class Board extends JFrame {
         setTitle("Tic Tac Toe");
         setSize(500, 500);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         currentPlayer = X;
         board = new JButton[3][3];
         hasWinner = false;
@@ -46,7 +46,7 @@ public class Board extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetBoard();
-            }            
+            }
         });
 
         quit = new JMenuItem("Quit");
@@ -86,7 +86,7 @@ public class Board extends JFrame {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if(((JButton)e.getSource()).getText().equals("") && hasWinner == false) {
+                        if(((JButton)e.getSource()).getText().equals("") && !hasWinner) {
                             button.setText(currentPlayer);
                             hasWinner();
                             togglePlayer();
@@ -107,15 +107,11 @@ public class Board extends JFrame {
     }
 
     private boolean checkWin(JButton[] seq) {
-            String a = seq[0].getText();
-            String b = seq[1].getText();
-            String c = seq[2].getText();
+        String a = seq[0].getText();
+        String b = seq[1].getText();
+        String c = seq[2].getText();
 
-            if (currentPlayer.equals(a) && a.equals(c) && b.equals(c)) {
-                return true;
-            } else {
-                return false;
-            }
+        return currentPlayer.equals(a) && a.equals(c) && b.equals(c);
     }
 
     private void hasWinner() {
@@ -146,7 +142,7 @@ public class Board extends JFrame {
            }
         }
 
-        if (BoardFull() && hasWinner == false) {
+        if (BoardFull() && !hasWinner) {
             JOptionPane.showMessageDialog(pane, tieMessage, messageTitle, JOptionPane.PLAIN_MESSAGE);
         }
     }
@@ -154,7 +150,7 @@ public class Board extends JFrame {
     private boolean BoardFull() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (board[i][j].getText() == "") {
+                if (board[i][j].getText().equals("")) {
                     return false;
                 }
             }
