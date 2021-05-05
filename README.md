@@ -1,7 +1,6 @@
 ## Simple Tic-Tac-Toe
 
 A tic-tac-toe game without AI
-Back up CJP project
 
 ## Dependency Management
 

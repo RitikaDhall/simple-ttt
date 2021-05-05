@@ -121,7 +121,8 @@ public class Board extends JFrame {
 
     private void hasWinner() {
         String messageTitle = "GAME OVER";
-        String message = "Player " + currentPlayer + " wins!";
+        String winMessage = "Player " + currentPlayer + " wins!";
+        String tieMessage = "It's a tie!";
 
         JButton[] r1 = new JButton[] {board[0][0], board[0][1], board[0][2]};
         JButton[] r2 = new JButton[] {board[1][0], board[1][1], board[1][2]};
@@ -141,9 +142,24 @@ public class Board extends JFrame {
                     button.setOpaque(true);
                     button.setBackground(green);
                 }
-                JOptionPane.showMessageDialog(null, message, messageTitle, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(pane, winMessage, messageTitle, JOptionPane.PLAIN_MESSAGE);
                 hasWinner = true;      
            }
         }
+
+        if (BoardFull() && hasWinner == false) {
+            JOptionPane.showMessageDialog(pane, tieMessage, messageTitle, JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    private boolean BoardFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j].getText() == "") {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
