@@ -5,6 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+    Ritika Pankaj Dhall
+    IU1941230032
+    CSE-A
+ */
+
 public class Board extends JFrame {
     private final Container pane;
     private String currentPlayer;

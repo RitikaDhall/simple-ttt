@@ -1,7 +1,9 @@
 ## Simple Tic-Tac-Toe
 
-A tic-tac-toe game without AI
+A tic-tac-toe game developed using Swing
 
-## Dependency Management
-
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+Project for Core Java Programming<br>
+By:<br>
+Ritika Pankaj Dhall<br>
+IU1941230032<br>
+CSE-A
